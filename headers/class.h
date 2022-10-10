@@ -1,5 +1,4 @@
 //KNOWN BUG: If animals die (generating corpses) while corpses finish decaying (removing corpses), pointers might fuck up
-//TODO: Fill up the Animal classes with working methods - *Herbivore -> Carnivore -> Detritivore -> Omnivore
 
 //ALL elements have nothing in common! The "Root" class remains empty.
 class Entity{};
@@ -261,7 +260,7 @@ class Herbivore: public Animal{
 			y = pos_y;
 			index = i;
 		}
-		
+		//Consume adjacent trees. If none nearby, look for one within 3 tiles distance
 		void target(Tile map[H][W], vector<Tree>* trees){
 			int target_found = 0;
 			for(int i=0;i<trees->size();i++){
@@ -302,7 +301,7 @@ class Omnivore: public Animal{
 			y = pos_y;
 			index = i;
 		}
-		
+		//Consume food from adjacent trees. If none nearby, consume nearby herbivores. If none found, look for trees within 4 tiles. If none found, look for herbivores within 6 tiles.
 		void target(Tile map[H][W],vector<Herbivore>* a_herb, vector<Tree>* trees){
 			int target_found = 0;
 			for(int i=0;i<trees->size();i++){
@@ -362,7 +361,7 @@ class Carnivore: public Animal{
 			y = pos_y;
 			index = i;
 		}
-		
+		//Consume adjacent herbivores. If none, consume adjacent omnivores. If none found, look for herbivores within 6 tiles. Otherwise, Omnivores within 5 tiles.
 		void target(Tile map[H][W],vector<Herbivore>* a_herb, vector<Omnivore>* a_omni){
 			int target_found = 0;
 			for(int i=0;i<a_herb->size();i++){
@@ -419,7 +418,7 @@ class Detritivore: public Animal{
 			y = pos_y;
 			index = i;
 		}
-		
+		//Consume adjacent bodies. If none found, look for them within 4 tiles away.
 		void target(Tile map[H][W],vector<Detritivore>* a_detr, vector<Corpse>* bodies){
 			int target_found = 0;
 			for(int i=0;i<bodies->size();i++){
