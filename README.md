@@ -1,4 +1,4 @@
-## Laboratory 3 - OOP
+## Laboratory 4 - OOP
 
 ### Description
 
